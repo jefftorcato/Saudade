@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">SaudadeAdmin</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_dashboard">Add Events</string>
+    <string name="title_notifications">More</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
@@ -12,4 +12,9 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="radio_exhibition">Exhibition</string>
+    <string name="radio_tiatr">Tiatr</string>
+    <string name="radio_activity">Activity</string>
+    <string name="radio_stuff">Stuff</string>
+    <string name="radioButtonTextView">Select Category</string>
 </resources>

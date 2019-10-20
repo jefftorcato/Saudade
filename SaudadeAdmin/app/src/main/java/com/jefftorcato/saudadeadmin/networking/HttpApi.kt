@@ -54,4 +54,34 @@ class HttpApi {
             connection.disconnect()
         }
     }
+
+    fun executeGet(targetURL: String) : String? {
+
+        lateinit var connection : HttpURLConnection
+
+        try {
+            //Create Connection
+            val url = URL(targetURL)
+            url.openConnection() as HttpURLConnection
+
+            //Get Response
+            val iStream : InputStream = connection.inputStream
+            val rd = BufferedReader(InputStreamReader(iStream))
+            val response = StringBuilder()
+            var line : String? = null
+
+            while ({line = rd.readLine(); line}() != null) {
+                response.append(line)
+                response.append('\r')
+            }
+            rd.close()
+            return response.toString()
+
+        } catch (e : Exception) {
+            e.printStackTrace()
+            return null
+        } finally {
+            connection.disconnect()
+        }
+    }
 }

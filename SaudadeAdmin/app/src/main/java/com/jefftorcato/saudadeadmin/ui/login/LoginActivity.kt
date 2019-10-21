@@ -1,6 +1,7 @@
 package com.jefftorcato.saudadeadmin.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -14,6 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.jefftorcato.saudadeadmin.MainActivity
 
 import com.jefftorcato.saudadeadmin.R
 
@@ -106,6 +108,11 @@ class LoginActivity : AppCompatActivity() {
             "$welcome $displayName",
             Toast.LENGTH_LONG
         ).show()
+        val homePageIntent = Intent(this,MainActivity::class.java)
+            .apply {
+                action = Intent.ACTION_SEND
+            }
+        startActivity(homePageIntent)
     }
 
     private fun showLoginFailed(@StringRes errorString: Int) {

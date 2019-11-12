@@ -1,6 +1,9 @@
 package com.jefftorcato.saudadeadmin.ui.home
 
+import android.content.ContentValues.TAG
+import android.os.AsyncTask
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +12,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jefftorcato.saudadeadmin.R
+import com.jefftorcato.saudadeadmin.firebase.AppFirebase.db
+import org.json.JSONArray
 
 class HomeFragment : Fragment() {
 
@@ -26,6 +31,21 @@ class HomeFragment : Fragment() {
         homeViewModel.text.observe(this, Observer {
             textView.text = it
         })
+        downloadEventData()
         return root
+    }
+
+    fun downloadEventData(){
+        val docRef = db.collection("event")
+            .whereEqualTo("artist","NE35cOA1VSQLU8n6guC81f1LXmE3")
+            .get()
+            .addOnSuccessListener {
+                for (document in it) {
+                    Log.d(TAG, "${document.id} => ${document.data}")
+                }
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error getting documents: ", exception)
+            }
     }
 }

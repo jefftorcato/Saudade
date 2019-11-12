@@ -11,77 +11,82 @@ import java.net.URL
 
 class HttpApi {
 
-    fun executePost(targetURL : String, urlParameters: String): String? {
+    companion object {
 
-        lateinit var connection : HttpURLConnection
+        fun executePost(targetURL: String, urlParameters: String): String? {
 
-        try {
-            val url : URL = URL(targetURL)
-            connection = url.openConnection() as HttpURLConnection
-            connection.requestMethod = "POST"
-            connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
+            lateinit var connection: HttpURLConnection
 
-            connection.setRequestProperty("Content-Length",
-                urlParameters.toByteArray().size.toString()
-            )
-            connection.setRequestProperty("Content-Language", "en-US");
+            try {
+                val url: URL = URL(targetURL)
+                connection = url.openConnection() as HttpURLConnection
+                connection.requestMethod = "POST"
+                connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded")
 
-            connection.useCaches = false
-            connection.doOutput = true
+                connection.setRequestProperty(
+                    "Content-Length",
+                    urlParameters.toByteArray().size.toString()
+                )
+                connection.setRequestProperty("Content-Language", "en-US");
 
-            //Send Request
-            val wr = DataOutputStream(connection.outputStream)
-            wr.writeBytes(urlParameters)
-            wr.close()
+                connection.useCaches = false
+                connection.doOutput = true
 
-            //Get Response
-            val iStream : InputStream = connection.inputStream
-            val rd = BufferedReader(InputStreamReader(iStream))
-            val response = StringBuilder()
-            var line : String? = null
+                //Send Request
+                val wr = DataOutputStream(connection.outputStream)
+                wr.writeBytes(urlParameters)
+                wr.close()
 
-            while ({line = rd.readLine(); line}() != null) {
-                response.append(line)
-                response.append('\r')
+                //Get Response
+                val iStream: InputStream = connection.inputStream
+                val rd = BufferedReader(InputStreamReader(iStream))
+                val response = StringBuilder()
+                var line: String? = null
+
+                while ({ line = rd.readLine(); line }() != null) {
+                    response.append(line)
+                    response.append('\r')
+                }
+                rd.close()
+                return response.toString()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return null
+            } finally {
+                connection.disconnect()
             }
-            rd.close()
-            return response.toString()
-
-        } catch (e : Exception) {
-            e.printStackTrace()
-            return null
-        } finally {
-            connection.disconnect()
         }
-    }
 
-    fun executeGet(targetURL: String) : String? {
+        fun executeGet(targetURL: String): String? {
 
-        lateinit var connection : HttpURLConnection
+            lateinit var connection: HttpURLConnection
 
-        try {
-            //Create Connection
-            val url = URL(targetURL)
-            url.openConnection() as HttpURLConnection
+            try {
+                //Create Connection
+                val url = URL(targetURL)
+                url.openConnection() as HttpURLConnection
 
-            //Get Response
-            val iStream : InputStream = connection.inputStream
-            val rd = BufferedReader(InputStreamReader(iStream))
-            val response = StringBuilder()
-            var line : String? = null
+                //Get Response
+                val iStream: InputStream = connection.inputStream
+                val rd = BufferedReader(InputStreamReader(iStream))
+                val response = StringBuilder()
+                var line: String? = null
 
-            while ({line = rd.readLine(); line}() != null) {
-                response.append(line)
-                response.append('\r')
+                while ({ line = rd.readLine(); line }() != null) {
+                    response.append(line)
+                    response.append('\r')
+                }
+                rd.close()
+                return response.toString()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                return null
+            } finally {
+                connection.disconnect()
             }
-            rd.close()
-            return response.toString()
-
-        } catch (e : Exception) {
-            e.printStackTrace()
-            return null
-        } finally {
-            connection.disconnect()
         }
+
     }
 }

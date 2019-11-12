@@ -17,7 +17,7 @@ class LoginDataSource {
             //return Result.Success(fakeUser)
             val API_ENDPOINT : String = ServerInfo.SERVER_ADDRESS + "/api/login"
             val fakeUser = LoggedInUser(java.util.UUID.randomUUID().toString(), "Jane Doe")
-            var res : String = HttpApi
+            var res : String? = HttpApi.executePost(API_ENDPOINT,"username="+username+"&password="+password)
             return Result.Success(fakeUser)
         } catch (e: Throwable) {
             return Result.Error(IOException("Error logging in", e))

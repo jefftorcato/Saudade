@@ -17,4 +17,11 @@
     <string name="radio_activity">Activity</string>
     <string name="radio_stuff">Stuff</string>
     <string name="radioButtonTextView">Select Category</string>
+    <string name="account_login_placeholder">Account Login</string>
+    <string name="email_placeholder">email</string>
+    <string name="email_hint_placeholder">john@gmail.com</string>
+    <string name="password_placeholder">password</string>
+    <string name="forgot_password_placeholder">Forgot Password?</string>
+    <string name="login_btn_placeholder">Log in</string>
+    <string name="signup_msg_placeholder">Don\'t have an account. Register Here</string>
 </resources>

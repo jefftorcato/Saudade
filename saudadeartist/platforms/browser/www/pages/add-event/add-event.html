@@ -1,0 +1,47 @@
+<div class="container-fluid">
+    <h1 class="h3 mb-2 text-gray-800">Add Event</h1>
+    <div class="card mb-4">
+        <div class="card-body">
+            <form id="form-addEvent">
+                <div class="row">
+                    <div class="form-group col-md-6">
+                        <label for="">Event Category</label>
+                        <select name="" id="inputCategory" class="form-control">
+                            <option disabled selected>Select an Event Category</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEventname">Event Name</label>
+                        <input type="text" id="inputEventname" class="form-control" placeholder="Enter event name"
+                            required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEventlocation">Event Location</label>
+                        <input type="text" id="inputEventlocation" class="form-control"
+                            placeholder="Enter event location" required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="inputEventticket">Ticket count</label>
+                        <input type="number" id="inputEventticket" class="form-control" required>
+                    </div>
+                    <!--<div class="form-group col-md-4">
+                                <label for="inputPagelink">App page link</label>
+                                <input type="text" id="inputPagelink" class="form-control" aria-describedby="pagelinkHelp" placeholder="Enter page link" required>
+                                <small id="pagelinkHelp" class="form-text text-muted">Page link should be in the format: /serviceName</small>
+                            </div>-->
+                    <div class="form-group col-md-6">
+                        <label for="inputEventposter">Event Poster</label>
+                        <input type="file" id="inputEventposter" class="form-control" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" id="btn-addEvent">Add Event</button>
+                <small id="message" class="form-text text-muted" style="display:none;"></small>
+            </form>
+        </div>
+
+    </div>
+</div>
+<script>
+    page_url = './dist/js/add-event/add-event.js';
+    $.getScript(page_url);
+</script>

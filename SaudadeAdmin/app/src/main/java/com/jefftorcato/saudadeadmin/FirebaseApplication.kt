@@ -4,6 +4,8 @@ import android.app.Application
 import com.jefftorcato.saudadeadmin.data.firebase.FirebaseSource
 import com.jefftorcato.saudadeadmin.data.repositories.UserRepository
 import com.jefftorcato.saudadeadmin.ui.auth.AuthViewModelFactory
+import com.jefftorcato.saudadeadmin.ui.dashboard.DashboardViewModelFactory
+import com.jefftorcato.saudadeadmin.ui.home.HomeViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -20,6 +22,7 @@ class FirebaseApplication : Application(), KodeinAware {
         bind() from singleton { FirebaseSource() }
         bind() from singleton { UserRepository(instance()) }
         bind() from provider { AuthViewModelFactory(instance()) }
-        //bind() from provider { HomeViewModelFactory(instance()) }
+        bind() from provider { HomeViewModelFactory(instance()) }
+        bind() from provider { DashboardViewModelFactory(instance()) }
     }
 }

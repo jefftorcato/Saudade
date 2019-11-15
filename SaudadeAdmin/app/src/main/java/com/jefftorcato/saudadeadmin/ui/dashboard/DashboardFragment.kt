@@ -7,13 +7,20 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.RadioButton
 import android.widget.Spinner
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.jefftorcato.saudadeadmin.R
+import com.jefftorcato.saudadeadmin.databinding.FragmentDashboardBinding
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.kodein
+import org.kodein.di.generic.instance
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : Fragment(),KodeinAware {
 
+    override val kodein by kodein()
+    private val factory : DashboardViewModelFactory by instance()
     private lateinit var dashboardViewModel: DashboardViewModel
     private lateinit var spinnerCategory: Spinner
 
@@ -29,10 +36,12 @@ class DashboardFragment : Fragment() {
         dashboardViewModel.text.observe(this, Observer {
             //textView.text = it
         })
+        val binding: FragmentDashboardBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_dashboard,container,false)
+        binding.viewmodel = dashboardViewModel
         //addItemsToSpinner(root)
         //val categoryRadio:RadioButton = root.findViewById(R.id.radioGroup)
         //onRadioButtonCategoryClicked(categoryRadio)
-        return root
+        return binding.root
     }
 
     /*private fun addItemsToSpinner(root: View) {

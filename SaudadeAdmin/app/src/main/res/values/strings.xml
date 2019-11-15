@@ -24,4 +24,5 @@
     <string name="forgot_password_placeholder">Forgot Password?</string>
     <string name="login_btn_placeholder">Log in</string>
     <string name="signup_msg_placeholder">Don\'t have an account. Register Here</string>
+    <string name="sign_out">Sign Out</string>
 </resources>

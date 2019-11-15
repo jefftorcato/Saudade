@@ -36,6 +36,11 @@ class HomeFragment : Fragment(),KodeinAware {
         return binding.root
     }
 
+    override fun onStart() {
+        super.onStart()
+
+    }
+
     /*fun downloadEventData(){
         val docRef = db.collection("event")
             .whereEqualTo("artist","NE35cOA1VSQLU8n6guC81f1LXmE3")

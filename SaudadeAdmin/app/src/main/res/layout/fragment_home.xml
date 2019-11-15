@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="probelalkhan@gmail.com" />
+            tools:text="spentpillow@gmail.com" />
 
         <Button
             android:id="@+id/button"

@@ -33,4 +33,8 @@
 
     <string name="all_events">All Events</string>
     <string name="divider_bullet">•</string>
+    <string name="filter_add_review">Add review</string>
+    <string name="hint_review">Say something?</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
 </resources>

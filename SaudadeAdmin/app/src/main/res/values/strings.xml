@@ -28,8 +28,10 @@
     <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
 
     <string name="sorted_by_rating">sorted by rating</string>
+    <string name="sorted_by_popularity">sorted by popularity</string>
 
     <string name="sort_by_rating">Sort by Rating</string>
+    <string name="sort_by_popularity">Sort by Popularity</string>
 
     <string name="all_events">All Events</string>
     <string name="divider_bullet">•</string>
@@ -37,4 +39,37 @@
     <string name="hint_review">Say something?</string>
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
+    <string name="apply">Apply</string>
+
+    <string name="value_any_category">Event Category</string>
+    <string name="value_any_city">Anywhere</string>
+
+    <!-- Types of food I could think of in 5 minutes -->
+    <string-array name="categories">
+        <item>@string/value_any_category</item>
+
+        <item>Tiatr</item>
+        <item>Party</item>
+        <item>Exhibition</item>
+        <item>Outdoor Activities</item>
+    </string-array>
+
+    <!-- 50 most populous cities in the US -->
+    <string-array name="cities">
+        <item>@string/value_any_city</item>
+
+        <item>Margao</item>
+        <item>Vasco</item>
+        <item>Panjim</item>
+        <item>Mapusa</item>
+        <item>Ponda</item>
+        <item>Calangute</item>
+        <item>Sinquerim</item>
+    </string-array>
+
+    <!-- Ways you can sort restaurants -->
+    <string-array name="sort_by">
+        <item>@string/sort_by_rating</item>
+        <item>@string/sort_by_popularity</item>
+    </string-array>
 </resources>

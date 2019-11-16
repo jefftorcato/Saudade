@@ -6,6 +6,9 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorPrimary">@color/greyPrimary</item>
+        <item name="android:textColorSecondary">@color/greySecondary</item>
+        <item name="android:actionOverflowButtonStyle">@style/AppTheme.Overflow</item>
     </style>
 
     <!-- Splash Screen theme. -->
@@ -94,7 +97,7 @@
         <item name="android:textColor">@color/greySecondary</item>
     </style>
 
-    <style name="AppTheme.PizzaGuy">
+    <style name="AppTheme.ReviewHand">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">150dp</item>
     </style>

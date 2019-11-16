@@ -26,6 +26,7 @@
     <string name="signup_msg_placeholder">Don\'t have an account. Register Here</string>
     <string name="sign_out">Sign Out</string>
     <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
+    <string name="message_no_reviews">Be the first to leave a review!</string>
 
     <string name="sorted_by_rating">sorted by rating</string>
     <string name="sorted_by_popularity">sorted by popularity</string>

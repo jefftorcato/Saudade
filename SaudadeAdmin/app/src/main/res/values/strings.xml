@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SaudadeAdmin</string>
+    <string name="app_name">Saudade</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Add Events</string>
     <string name="title_notifications">More</string>

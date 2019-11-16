@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +21,8 @@ class HomeFragment : Fragment(),KodeinAware {
     private val factory : HomeViewModelFactory by instance()
     private lateinit var homeViewModel: HomeViewModel
 
+    private var mToolbar: Toolbar? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -27,7 +31,11 @@ class HomeFragment : Fragment(),KodeinAware {
         homeViewModel =
             ViewModelProviders.of(this,factory).get(HomeViewModel::class.java)
         val binding: FragmentHomeBinding = DataBindingUtil.inflate(inflater,R.layout.fragment_home,container,false)
+        (activity as AppCompatActivity).supportActionBar!!.hide()
         binding.viewmodel = homeViewModel
+        mToolbar = binding.root.findViewById(R.id.toolbar)
+
+
         //val textView: TextView = root.findViewById(R.id.text_home)
         /*homeViewModel.text.observe(this, Observer {
             textView.text = it

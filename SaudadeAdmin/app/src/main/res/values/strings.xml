@@ -25,4 +25,12 @@
     <string name="login_btn_placeholder">Log in</string>
     <string name="signup_msg_placeholder">Don\'t have an account. Register Here</string>
     <string name="sign_out">Sign Out</string>
+    <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
+
+    <string name="sorted_by_rating">sorted by rating</string>
+
+    <string name="sort_by_rating">Sort by Rating</string>
+
+    <string name="all_events">All Events</string>
+    <string name="divider_bullet">•</string>
 </resources>

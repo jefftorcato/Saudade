@@ -2,14 +2,13 @@ package com.jefftorcato.saudadeadmin.data.adapter
 
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.google.firebase.firestore.ListenerRegistration
-import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.*
 import java.util.ArrayList
+import com.google.firebase.firestore.DocumentSnapshot
 
-abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder> :
-    RecyclerView.Adapter<VH> {
+
+abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var mQuery: Query?) :
+    RecyclerView.Adapter<VH>(),EventListener<QuerySnapshot> {
 
     companion object{
         val TAG: String = "Firestore Adapter"
@@ -18,14 +17,10 @@ abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder> :
     private var mRegistration: ListenerRegistration? = null
     private val mSnapshots = ArrayList<DocumentSnapshot>()
 
-    private var mQuery: Query? = null
-
-    constructor(mQuery: Query?) : super() {
-        this.mQuery = mQuery
-    }
-
     fun startListening() {
-        // TODO(developer): Implement
+        if (mQuery != null && mRegistration == null) {
+            mRegistration = mQuery!!.addSnapshotListener(this)
+        }
     }
 
     fun stopListening() {
@@ -55,13 +50,57 @@ abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder> :
         return mSnapshots.size
     }
 
+    override fun onEvent(documentSnapshots: QuerySnapshot?, e: FirebaseFirestoreException?) {
+
+        if(e!=null) {
+            Log.w(TAG, "onEvent:Error",e)
+            return
+        }
+
+        if (documentSnapshots != null) {
+            for (change in documentSnapshots.documentChanges) {
+                // Snapshot of the changed document
+                val snapshot = change.document
+
+                when (change.type) {
+                    DocumentChange.Type.ADDED -> onDocumentAdded(change)
+                    DocumentChange.Type.MODIFIED -> onDocumentModified(change)
+                    DocumentChange.Type.REMOVED -> onDocumentRemoved(change)
+                }
+            }
+
+            onDatachanged()
+        }
+    }
+
+    protected fun onDocumentAdded(change: DocumentChange) {
+        mSnapshots.add(change.newIndex, change.document)
+        notifyItemInserted(change.newIndex)
+    }
+
+    protected fun onDocumentModified(change: DocumentChange) {
+        if (change.oldIndex == change.newIndex) {
+            // Item changed but remained in same position
+            mSnapshots[change.oldIndex] = change.document
+            notifyItemChanged(change.oldIndex)
+        } else {
+            // Item changed and changed position
+            mSnapshots.removeAt(change.oldIndex)
+            mSnapshots.add(change.newIndex, change.document)
+            notifyItemMoved(change.oldIndex, change.newIndex)
+        }
+    }
+
+    protected fun onDocumentRemoved(change: DocumentChange) {
+        mSnapshots.removeAt(change.oldIndex)
+        notifyItemRemoved(change.oldIndex)
+    }
+
     protected fun getSnapshot(index: Int): DocumentSnapshot {
         return mSnapshots[index]
     }
 
-    protected fun onError(e:FirebaseFirestoreException) {
-        Log.e(TAG,e.message!!)
-    }
+    protected fun onError(e:FirebaseFirestoreException) {}
 
     protected fun onDatachanged() {}
 }

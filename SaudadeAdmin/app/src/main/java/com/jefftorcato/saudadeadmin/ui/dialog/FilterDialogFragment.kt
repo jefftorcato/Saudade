@@ -24,7 +24,7 @@ class FilterDialogFragment: DialogFragment(), View.OnClickListener {
     }
 
     interface FilterListener {
-        fun onFilter(filters: Filters)
+        fun onFilter(filters: Filters?)
     }
 
     private lateinit var mRootView: View
@@ -134,7 +134,7 @@ class FilterDialogFragment: DialogFragment(), View.OnClickListener {
         }
     }
 
-    fun getFilters(): Filters {
+    fun getFilters(): Filters? {
         val filters = Filters()
 
         if(mRootView != null) {

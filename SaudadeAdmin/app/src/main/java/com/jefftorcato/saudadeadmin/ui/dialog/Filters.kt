@@ -68,7 +68,7 @@ data class Filters(
 
 
 
-    fun getSearchDescription(context: Context): String {
+    fun getSearchDescription(): String {
         val desc = StringBuilder()
 
         if (category == null && city == null) {

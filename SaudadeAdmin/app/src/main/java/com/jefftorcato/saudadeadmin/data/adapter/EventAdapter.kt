@@ -31,7 +31,7 @@ class EventAdapter(query: Query, private val mListener: OnEventSelectedListener)
         holder.bind(getSnapshot(position), mListener)
     }
 
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         var imageView: ImageView = itemView.findViewById(R.id.event_item_image)
         var nameView: TextView = itemView.findViewById(R.id.event_item_name)
@@ -50,10 +50,11 @@ class EventAdapter(query: Query, private val mListener: OnEventSelectedListener)
                     .load(event.getPhoto())
                     .into(imageView)
 
-                nameView.text=event.getName()
+                nameView.text = event.getName()
                 ratingBar.rating = event.getAvgRating().toFloat()
                 cityView.text = event.getCategory()
-                numRatingsView.text = resources.getString(R.string.fmt_num_ratings,event.getNumRatings())
+                numRatingsView.text =
+                    resources.getString(R.string.fmt_num_ratings, event.getNumRatings())
             }
 
             itemView.setOnClickListener {

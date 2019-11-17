@@ -1,12 +1,14 @@
 package com.jefftorcato.saudadeadmin.data.models
 
 class Event constructor(
+    private var artist: String = "",
     private var name: String = "",
     private var city: String = "",
     private var category: String = "",
     private var photo: String = "",
     private var numRatings: Int = 0,
-    private var avgRating: Double = 0.0
+    private var avgRating: Double = 0.0,
+    private var ticketCount: Int = 0
 ) {
 
     companion object {
@@ -14,6 +16,22 @@ class Event constructor(
         val FIELD_CATEGORY = "category"
         val FIELD_POPULARITY = "numRatings"
         val FIELD_AVG_RATING = "avgRatings"
+    }
+
+    fun getTicketCount(): Int {
+        return ticketCount
+    }
+
+    fun setTicketCount(ticketCount: Int) {
+        this.ticketCount = ticketCount
+    }
+
+    fun getArtist(): String {
+        return artist
+    }
+
+    fun setArtist(artist: String) {
+        this.artist = artist
     }
 
     fun getName(): String {

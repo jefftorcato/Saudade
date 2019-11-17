@@ -2,22 +2,31 @@ package com.jefftorcato.saudadeadmin.ui.home
 
 import android.os.Bundle
 import android.os.RecoverySystem
+import android.text.Html
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.cardview.widget.CardView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.jefftorcato.saudadeadmin.R
 import com.jefftorcato.saudadeadmin.data.adapter.EventAdapter
 import com.jefftorcato.saudadeadmin.databinding.FragmentHomeBinding
 import com.jefftorcato.saudadeadmin.ui.dialog.FilterDialogFragment
+import com.jefftorcato.saudadeadmin.ui.dialog.Filters
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -46,7 +55,7 @@ class HomeFragment : Fragment(),
 
     companion object {
         private val TAG: String = "MainActivity"
-        private val LIMIT: Int = 50
+        private const val LIMIT: Long = 50
     }
 
 
@@ -60,15 +69,91 @@ class HomeFragment : Fragment(),
         val binding: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
         (activity as AppCompatActivity).supportActionBar!!.hide()
-
         binding.viewmodel = homeViewModel
         mToolbar = binding.root.findViewById(R.id.toolbar)
+        mCurrentSearchView = binding.root.findViewById(R.id.text_current_search)
+        mCurrentSortByView = binding.root.findViewById(R.id.text_current_sort_by)
+        mEventsRecycler = binding.root.findViewById(R.id.recycler_events)
+        mEmptyView = binding.root.findViewById(R.id.view_empty)
+
+        binding.root.findViewById<CardView>(R.id.filter_bar).setOnClickListener(this)
+        binding.root.findViewById<ImageView>(R.id.button_clear_filter).setOnClickListener(this)
+
+        FirebaseFirestore.setLoggingEnabled(true)
+
+        initFirestore()
+        initRecyclerView()
 
         return binding.root
     }
 
+    fun initFirestore() {
+        mFirestore = FirebaseFirestore.getInstance();
+
+        // Get the 50 highest rated restaurants
+        mQuery = mFirestore.collection("event")
+            .orderBy("avgRating", Query.Direction.DESCENDING)
+            .limit(LIMIT)
+    }
+
+    fun initRecyclerView() {
+        if(mQuery == null) {
+            Log.w(TAG, "No query to initialize RecyclerView")
+        }
+
+        mAdapter = EventAdapter(mQuery,this)
+        // TODO(developer): Implementation of onDataChanged here and even onError
+        mEventsRecycler.layoutManager = LinearLayoutManager(this.context)
+        mEventsRecycler.adapter = mAdapter
+    }
+
     override fun onStart() {
         super.onStart()
+
+        onFilter(homeViewModel.getFilters())
+
+        if(mAdapter != null) {
+            mAdapter.startListening()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        if(mAdapter != null) {
+            mAdapter.stopListening()
+        }
+    }
+
+    override fun onFilter(filters: Filters?) {
+
+        if (filters != null) {
+            mCurrentSearchView.text = Html.fromHtml(filters.getSearchDescription())
+            mCurrentSortByView.text = filters.getOrderDescription(this.context!!)
+        }
+
+        homeViewModel.setFilters(filters)
+    }
+
+    override fun onClick(v: View) {
+        when (v.id) {
+            R.id.filter_bar -> onFilterClicked()
+            R.id.button_clear_filter -> onClearFilterClicked()
+        }
+    }
+
+    fun onFilterClicked() {
+        // Show the dialog containing filter options
+        //mFilterDialog.show(,FilterDialogFragment.TAG)
+    }
+
+    fun onClearFilterClicked() {
+        mFilterDialog.resetFilters()
+
+        onFilter(Filters.getDefault())
+    }
+
+    override fun onEventSelected(event: DocumentSnapshot) {
 
     }
 

@@ -16,4 +16,52 @@ class Event constructor(
         val FIELD_AVG_RATING = "avgRatings"
     }
 
+    fun getName(): String {
+        return name
+    }
+
+    fun setName(name: String) {
+        this.name = name
+    }
+
+    fun getCity(): String {
+        return city
+    }
+
+    fun setCity(city: String) {
+        this.city = city
+    }
+
+    fun getCategory(): String {
+        return category
+    }
+
+    fun setCategory(category: String) {
+        this.category = category
+    }
+
+    fun getPhoto(): String {
+        return photo
+    }
+
+    fun setPhoto(photo: String) {
+        this.photo = photo
+    }
+
+    fun getNumRatings(): Int {
+        return numRatings
+    }
+
+    fun setNumRatings(numRatings: Int) {
+        this.numRatings = numRatings
+    }
+
+    fun getAvgRating(): Double {
+        return avgRating
+    }
+
+    fun setAvgRating(avgRating: Double) {
+        this.avgRating = avgRating
+    }
+
 }

@@ -44,6 +44,7 @@
 
     <string name="value_any_category">Event Category</string>
     <string name="value_any_city">Anywhere</string>
+    <string name="fmt_num_ratings" translatable="false">(%d)</string>
 
     <!-- Types of food I could think of in 5 minutes -->
     <string-array name="categories">

@@ -24,15 +24,15 @@ data class Filters(
     }
 
     fun hasCategory(): Boolean {
-        return !TextUtils.isEmpty(category)
+        return !(TextUtils.isEmpty(category))
     }
 
     fun hasCity(): Boolean {
-        return !TextUtils.isEmpty(city)
+        return !(TextUtils.isEmpty(city))
     }
 
     fun hasSortBy(): Boolean {
-        return !TextUtils.isEmpty(sortBy)
+        return !(TextUtils.isEmpty(sortBy))
     }
 
     //Getters

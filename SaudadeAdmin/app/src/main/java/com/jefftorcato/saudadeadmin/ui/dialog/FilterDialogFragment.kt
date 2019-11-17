@@ -75,8 +75,10 @@ class FilterDialogFragment: DialogFragment(), View.OnClickListener {
     }
 
     fun onSearchClicked(){
-        mFilterListener?.onFilter(getFilters())
 
+        if(mFilterListener!=null) {
+            mFilterListener!!.onFilter(getFilters())
+        }
         dismiss()
     }
 
@@ -108,7 +110,7 @@ class FilterDialogFragment: DialogFragment(), View.OnClickListener {
             return Event.FIELD_AVG_RATING
         }
         if (getString(R.string.sort_by_popularity) == selected) {
-            Event.FIELD_POPULARITY
+            return Event.FIELD_POPULARITY
         }
 
         return null

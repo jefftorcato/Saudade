@@ -6,21 +6,15 @@ import com.google.firebase.firestore.Query
 import com.jefftorcato.saudadeadmin.R
 import com.jefftorcato.saudadeadmin.data.models.Event
 
-class Filters {
-    private var category: String? = ""
-    private var city : String? = ""
-    private var sortBy : String? = ""
-    private var sortDirection : Query.Direction?
-
-    constructor() {
-        this.category = null
-        this.city = null
-        this.sortBy = null
-        this.sortDirection = null
-    }
+data class Filters(
+    private var category: String? = "",
+    private var city: String? = "",
+    private var sortBy: String? = "",
+    private var sortDirection: Query.Direction? = null
+) {
 
     companion object {
-        fun getDefault():Filters {
+        fun getDefault(): Filters {
             val filters = Filters()
             filters.sortBy = Event.FIELD_AVG_RATING
             filters.sortDirection = Query.Direction.DESCENDING
@@ -40,6 +34,39 @@ class Filters {
     fun hasSortBy(): Boolean {
         return !TextUtils.isEmpty(sortBy)
     }
+
+    //Getters
+    fun getCategory(): String? {
+        return category
+    }
+
+    fun getCity(): String? {
+        return city
+    }
+
+    fun getSortBy(): String? {
+        return sortBy
+    }
+
+    // Setters
+
+    fun setCategory(category: String?) {
+        this.category = category
+    }
+
+    fun setCity(city: String?) {
+        this.city = city
+    }
+
+    fun setSortBy(sortBy: String?) {
+        this.sortBy = sortBy
+    }
+
+    fun setSortDirection(sortDirection: Query.Direction?) {
+        this.sortDirection = sortDirection
+    }
+
+
 
     fun getSearchDescription(context: Context): String {
         val desc = StringBuilder()

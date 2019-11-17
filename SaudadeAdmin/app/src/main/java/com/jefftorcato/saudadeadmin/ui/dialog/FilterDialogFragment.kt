@@ -10,7 +10,9 @@ import android.widget.Spinner
 import androidx.annotation.NonNull
 import androidx.annotation.Nullable
 import androidx.fragment.app.DialogFragment
+import com.google.firebase.firestore.Query
 import com.jefftorcato.saudadeadmin.R
+import com.jefftorcato.saudadeadmin.data.models.Event
 
 class FilterDialogFragment: DialogFragment(), View.OnClickListener {
 
@@ -75,4 +77,72 @@ class FilterDialogFragment: DialogFragment(), View.OnClickListener {
 
         dismiss()
     }
+
+    fun onCancelClicked() {
+        dismiss()
+    }
+
+    private fun getSelectedCategory(): String? {
+        val selected = mCategorySpinner.selectedItem as String
+        return if (getString(R.string.value_any_category) == selected) {
+            null
+        } else {
+            selected
+        }
+    }
+
+    private fun getSelectedCity(): String? {
+        val selected = mCitySpinner.selectedItem as String
+        return if (getString(R.string.value_any_city) == selected) {
+            null
+        } else {
+            selected
+        }
+    }
+
+    private fun getSelectedSortBy(): String? {
+        val selected = mSortSpinner.selectedItem as String
+        if (getString(R.string.sort_by_rating) == selected) {
+            return Event.FIELD_AVG_RATING
+        }
+        if (getString(R.string.sort_by_popularity) == selected) {
+            Event.FIELD_POPULARITY
+        }
+
+        return null
+    }
+
+    private fun getSortDirection(): Query.Direction? {
+        val selected = mSortSpinner.selectedItem as String
+        if (getString(R.string.sort_by_rating) == selected) {
+            return Query.Direction.DESCENDING
+        }
+        if (getString(R.string.sort_by_popularity) == selected) {
+            return Query.Direction.DESCENDING
+        }
+
+        return null
+    }
+
+    fun resetFilters() {
+        if (mRootView != null) {
+            mCategorySpinner.setSelection(0)
+            mCitySpinner.setSelection(0)
+            mSortSpinner.setSelection(0)
+        }
+    }
+
+    fun getFilters(): Filters {
+        val filters = Filters()
+
+        if(mRootView != null) {
+            filters.setCategory(getSelectedCategory())
+            filters.setCity(getSelectedCity())
+            filters.setSortBy(getSelectedSortBy())
+            filters.setSortDirection(getSortDirection())
+        }
+
+        return filters
+    }
+
 }

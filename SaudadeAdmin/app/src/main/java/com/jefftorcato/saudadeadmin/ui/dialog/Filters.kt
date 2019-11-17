@@ -48,6 +48,10 @@ data class Filters(
         return sortBy
     }
 
+    fun getSortDirection(): Query.Direction? {
+        return sortDirection
+    }
+
     // Setters
 
     fun setCategory(category: String?) {

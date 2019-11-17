@@ -11,29 +11,18 @@
     </data>
 
     <RelativeLayout
+        android:id="@+id/mainRelativeLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E0E0E0">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/AppTheme"
-            app:logo="@drawable/ic_event_white_24px"
-            app:popupTheme="@style/Theme.AppCompat.Light.DarkActionBar"
-            app:title="@string/app_name"
-            app:titleMarginStart="24dp"
-            app:titleTextColor="@android:color/white" />
 
         <FrameLayout
             android:id="@+id/filter_bar_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
             android:background="?attr/colorPrimary"
             android:paddingLeft="12dp"
+            android:paddingTop="12dp"
             android:paddingRight="12dp"
             android:paddingBottom="12dp">
 
@@ -126,7 +115,6 @@
             android:id="@+id/view_empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"

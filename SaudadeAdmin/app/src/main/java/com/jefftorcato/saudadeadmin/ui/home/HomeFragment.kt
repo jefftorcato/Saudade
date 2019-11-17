@@ -4,9 +4,7 @@ import android.os.Bundle
 import android.os.RecoverySystem
 import android.text.Html
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +25,7 @@ import com.jefftorcato.saudadeadmin.data.adapter.EventAdapter
 import com.jefftorcato.saudadeadmin.databinding.FragmentHomeBinding
 import com.jefftorcato.saudadeadmin.ui.dialog.FilterDialogFragment
 import com.jefftorcato.saudadeadmin.ui.dialog.Filters
+import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
@@ -68,9 +67,10 @@ class HomeFragment : Fragment(),
             ViewModelProviders.of(this, factory).get(HomeViewModel::class.java)
         val binding: FragmentHomeBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false)
-        (activity as AppCompatActivity).supportActionBar!!.hide()
+        //(activity as AppCompatActivity).supportActionBar!!.hide()
         binding.viewmodel = homeViewModel
-        mToolbar = binding.root.findViewById(R.id.toolbar)
+        //mToolbar = binding.root.findViewById(R.id.toolbar)
+        setHasOptionsMenu(true)
         mCurrentSearchView = binding.root.findViewById(R.id.text_current_search)
         mCurrentSortByView = binding.root.findViewById(R.id.text_current_sort_by)
         mEventsRecycler = binding.root.findViewById(R.id.recycler_events)
@@ -83,7 +83,7 @@ class HomeFragment : Fragment(),
 
         initFirestore()
         initRecyclerView()
-
+        mFilterDialog = FilterDialogFragment()
         return binding.root
     }
 
@@ -127,7 +127,26 @@ class HomeFragment : Fragment(),
 
     override fun onFilter(filters: Filters?) {
 
+        var query: Query = mFirestore.collection("event")
+
         if (filters != null) {
+            if(filters.hasCategory()){
+                query = query.whereEqualTo("category", filters.getCategory())
+            }
+
+            if(filters.hasCity()) {
+                query = query.whereEqualTo("city",filters.getCity())
+            }
+
+            if(filters.hasSortBy()) {
+                query = query.orderBy(filters.getSortBy()!!,filters.getSortDirection()!!)
+            }
+
+            query = query.limit(LIMIT)
+
+            mQuery = query
+            mAdapter.setQuery(query)
+
             mCurrentSearchView.text = Html.fromHtml(filters.getSearchDescription())
             mCurrentSortByView.text = filters.getOrderDescription(this.context!!)
         }
@@ -145,6 +164,8 @@ class HomeFragment : Fragment(),
     fun onFilterClicked() {
         // Show the dialog containing filter options
         //mFilterDialog.show(,FilterDialogFragment.TAG)
+
+        mFilterDialog.show(fragmentManager!!,FilterDialogFragment.TAG)
     }
 
     fun onClearFilterClicked() {
@@ -157,6 +178,20 @@ class HomeFragment : Fragment(),
 
     }
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_dropdown,menu)
+        return super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId) {
+            R.id.menu_sign_out -> {
+                homeViewModel.logout(view!!)
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
     /*fun downloadEventData(){
         val docRef = db.collection("event")
             .whereEqualTo("artist","NE35cOA1VSQLU8n6guC81f1LXmE3")

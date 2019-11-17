@@ -1,5 +1,6 @@
 package com.jefftorcato.saudadeadmin.data.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,7 +42,6 @@ class EventAdapter(query: Query, private val mListener: OnEventSelectedListener)
         var cityView: TextView = itemView.findViewById(R.id.event_item_city)
 
         fun bind(snapshot: DocumentSnapshot, listener: OnEventSelectedListener) {
-            //val event = snapshot.toObject(Event::class.java)
             val event: Event? = snapshot.toObject(Event::class.java)
             val resources = itemView.resources
 
@@ -52,11 +52,11 @@ class EventAdapter(query: Query, private val mListener: OnEventSelectedListener)
 
                 nameView.text = event.getName()
                 ratingBar.rating = event.getAvgRating().toFloat()
-                cityView.text = event.getCategory()
+                cityView.text = event.getCity()
+                categoryView.text = event.getCategory()
                 numRatingsView.text =
                     resources.getString(R.string.fmt_num_ratings, event.getNumRatings())
             }
-
             itemView.setOnClickListener {
                 listener.onEventSelected(snapshot)
             }

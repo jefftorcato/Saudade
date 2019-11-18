@@ -88,7 +88,7 @@ class HomeFragment : Fragment(),
     }
 
     fun initFirestore() {
-        mFirestore = FirebaseFirestore.getInstance();
+        mFirestore = FirebaseFirestore.getInstance()
 
         // Get the 50 highest rated restaurants
         mQuery = mFirestore.collection("event")
@@ -97,11 +97,11 @@ class HomeFragment : Fragment(),
     }
 
     fun initRecyclerView() {
-        if(mQuery == null) {
+        if (mQuery == null) {
             Log.w(TAG, "No query to initialize RecyclerView")
         }
 
-        mAdapter = EventAdapter(mQuery,this)
+        mAdapter = EventAdapter(mQuery, this)
         // TODO(developer): Implementation of onDataChanged here and even onError
         mEventsRecycler.layoutManager = LinearLayoutManager(this.context)
         mEventsRecycler.adapter = mAdapter
@@ -112,7 +112,7 @@ class HomeFragment : Fragment(),
 
         onFilter(homeViewModel.getFilters())
 
-        if(mAdapter != null) {
+        if (mAdapter != null) {
             mAdapter.startListening()
         }
     }
@@ -120,7 +120,7 @@ class HomeFragment : Fragment(),
     override fun onStop() {
         super.onStop()
 
-        if(mAdapter != null) {
+        if (mAdapter != null) {
             mAdapter.stopListening()
         }
     }
@@ -130,16 +130,16 @@ class HomeFragment : Fragment(),
         var query: Query = mFirestore.collection("event")
 
         if (filters != null) {
-            if(filters.hasCategory()){
+            if (filters.hasCategory()) {
                 query = query.whereEqualTo("category", filters.getCategory())
             }
 
-            if(filters.hasCity()) {
-                query = query.whereEqualTo("city",filters.getCity())
+            if (filters.hasCity()) {
+                query = query.whereEqualTo("city", filters.getCity())
             }
 
-            if(filters.hasSortBy()) {
-                query = query.orderBy(filters.getSortBy()!!,filters.getSortDirection()!!)
+            if (filters.hasSortBy()) {
+                query = query.orderBy(filters.getSortBy()!!, filters.getSortDirection()!!)
             }
 
             query = query.limit(LIMIT)
@@ -161,11 +161,15 @@ class HomeFragment : Fragment(),
         }
     }
 
+    override fun onEventSelected(event: DocumentSnapshot) {
+
+    }
+
     fun onFilterClicked() {
         // Show the dialog containing filter options
         //mFilterDialog.show(,FilterDialogFragment.TAG)
 
-        mFilterDialog.show(fragmentManager!!,FilterDialogFragment.TAG)
+        mFilterDialog.show(fragmentManager!!, FilterDialogFragment.TAG)
     }
 
     fun onClearFilterClicked() {
@@ -174,18 +178,15 @@ class HomeFragment : Fragment(),
         onFilter(Filters.getDefault())
     }
 
-    override fun onEventSelected(event: DocumentSnapshot) {
-
-    }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_dropdown,menu)
+        inflater.inflate(R.menu.menu_dropdown, menu)
         return super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
-        when(item.itemId) {
+        when (item.itemId) {
             R.id.menu_sign_out -> {
                 homeViewModel.logout(view!!)
             }

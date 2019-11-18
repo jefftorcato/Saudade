@@ -1,13 +1,27 @@
 package com.jefftorcato.saudade.ui.home
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.view.View
 import androidx.lifecycle.ViewModel
+import com.jefftorcato.saudade.data.repositories.UserRepository
+import com.jefftorcato.saudade.ui.dialog.filterDialog.Filters
+import com.jefftorcato.saudade.utils.startLoginActivity
 
-class HomeViewModel : ViewModel() {
+class HomeViewModel(
+    private val repository: UserRepository
+) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    val user by lazy {
+        repository.currentUser()
     }
-    val text: LiveData<String> = _text
+
+    private var mFilters: Filters? = null
+
+    fun getFilters():Filters? {return mFilters}
+
+    fun setFilters(mFilters:Filters?) { this.mFilters = mFilters}
+
+    fun logout(){
+        repository.logout()
+        //view.context.startLoginActivity()
+    }
 }

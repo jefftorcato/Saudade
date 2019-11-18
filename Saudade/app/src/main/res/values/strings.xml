@@ -1,6 +1,74 @@
 <resources>
     <string name="app_name">Saudade</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="radio_exhibition">Exhibition</string>
+    <string name="radio_tiatr">Tiatr</string>
+    <string name="radio_activity">Activity</string>
+    <string name="radio_stuff">Stuff</string>
+    <string name="radioButtonTextView">Select Category</string>
+    <string name="account_login_placeholder">Account Login</string>
+    <string name="email_placeholder">email</string>
+    <string name="email_hint_placeholder">john@gmail.com</string>
+    <string name="password_placeholder">password</string>
+    <string name="forgot_password_placeholder">Forgot Password?</string>
+    <string name="login_btn_placeholder">Log in</string>
+    <string name="signup_msg_placeholder">Don\'t have an account. Register Here</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="message_no_results">Oops, couldn\'t find any results\nthat matched your filter</string>
+    <string name="message_no_reviews">Be the first to leave a review!</string>
+
+    <string name="sorted_by_rating">sorted by rating</string>
+    <string name="sorted_by_popularity">sorted by popularity</string>
+
+    <string name="sort_by_rating">Sort by Rating</string>
+    <string name="sort_by_popularity">Sort by Popularity</string>
+
+    <string name="all_events">All Events</string>
+    <string name="divider_bullet">•</string>
+    <string name="filter_add_review">Add review</string>
+    <string name="hint_review">Say something?</string>
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="apply">Apply</string>
+
+    <string name="value_any_category">Event Category</string>
+    <string name="value_any_city">Anywhere</string>
+    <string name="fmt_num_ratings" translatable="false">(%d)</string>
+
+    <!-- Types of food I could think of in 5 minutes -->
+    <string-array name="categories">
+        <item>@string/value_any_category</item>
+
+        <item>Tiatr</item>
+        <item>Party</item>
+        <item>Exhibition</item>
+        <item>Outdoor Activities</item>
+    </string-array>
+
+    <!-- 50 most populous cities in the US -->
+    <string-array name="cities">
+        <item>@string/value_any_city</item>
+
+        <item>Margao</item>
+        <item>Vasco</item>
+        <item>Panjim</item>
+        <item>Mapusa</item>
+        <item>Ponda</item>
+        <item>Calangute</item>
+        <item>Sinquerim</item>
+    </string-array>
+
+    <!-- Ways you can sort restaurants -->
+    <string-array name="sort_by">
+        <item>@string/sort_by_rating</item>
+        <item>@string/sort_by_popularity</item>
+    </string-array>
 </resources>

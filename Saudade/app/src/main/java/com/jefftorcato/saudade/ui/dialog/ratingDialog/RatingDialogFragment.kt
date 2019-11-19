@@ -2,6 +2,7 @@ package com.jefftorcato.saudade.ui.dialog.ratingDialog
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,6 +77,8 @@ class RatingDialogFragment: DialogFragment(), View.OnClickListener {
             mRatingBar?.rating!!.toDouble(),
             mRatingText?.text.toString()
         )
+
+        Log.d(TAG,rating.rating.toString())
 
         if (mRatingListener != null) {
             mRatingListener!!.onRating(rating)

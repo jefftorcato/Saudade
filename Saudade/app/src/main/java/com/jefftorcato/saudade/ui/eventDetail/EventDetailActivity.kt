@@ -61,7 +61,7 @@ class EventDetailActivity : AppCompatActivity(),
 
     private var mRatingDialog: RatingDialogFragment? = null
 
-    private var mFirestore: FirebaseFirestore? = null
+    private lateinit var mFirestore: FirebaseFirestore
     private lateinit var mEventRef: DocumentReference
     private var mEventRegistration: ListenerRegistration? = null
 
@@ -105,7 +105,7 @@ class EventDetailActivity : AppCompatActivity(),
     fun initFirestore(eventId: String) {
         mFirestore = FirebaseFirestore.getInstance()
 
-        mEventRef = mFirestore!!.collection("event").document(eventId)
+        mEventRef = mFirestore.collection("event").document(eventId)
         val ratingsQuery: Query = mEventRef!!.collection("ratings")
             .orderBy("timestamp", Query.Direction.DESCENDING)
             .limit(50)
@@ -146,8 +146,28 @@ class EventDetailActivity : AppCompatActivity(),
     }
 
     private fun addRating(eventRef: DocumentReference, rating: Rating): Task<Void> {
-        // TODO(developer): Implement
-        return Tasks.forException(Exception("not yet implemented"))
+
+        val ratingRef: DocumentReference = eventRef.collection("ratings").document()
+
+        return mFirestore.runTransaction {
+
+            val event: Event = it.get(eventRef).toObject(Event::class.java)!!
+             Log.d(TAG,event.getAvgRating().toString())
+            val newNumRatings = event.getNumRatings() + 1
+
+            Log.d(TAG,rating.rating.toString())
+            val oldRatingTotal = event.getAvgRating() * event.getNumRatings()
+            val newAvgRating = (oldRatingTotal + rating.rating) / newNumRatings
+
+            Log.d(TAG,newAvgRating.toString())
+
+            event.setNumRatings(newNumRatings)
+            event.setAvgRating(newAvgRating)
+
+            it.set(eventRef,event)
+            it.set(ratingRef,rating)
+            null
+        }
     }
 
     override fun onEvent(snapshot: DocumentSnapshot?, e: FirebaseFirestoreException?) {

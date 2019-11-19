@@ -133,7 +133,7 @@
             android:clipToPadding="false"
             android:paddingBottom="16dp"
             android:paddingTop="28dp"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:listitem="@layout/item_rating" />
 
         <!-- View for empty ratings -->

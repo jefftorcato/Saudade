@@ -27,7 +27,7 @@ class FilterDialogFragment: DialogFragment(), View.OnClickListener {
         fun onFilter(filters: Filters?)
     }
 
-    private lateinit var mRootView: View
+    private var mRootView: View? = null
     private lateinit var mCategorySpinner: Spinner
     private lateinit var mCitySpinner: Spinner
     private lateinit var mSortSpinner: Spinner
@@ -40,12 +40,12 @@ class FilterDialogFragment: DialogFragment(), View.OnClickListener {
         @Nullable savedInstanceState: Bundle?
     ): View? {
         mRootView = inflater.inflate(R.layout.dialog_filters, container,false)
-        mCategorySpinner = mRootView.findViewById(R.id.spinner_category)
-        mCitySpinner = mRootView.findViewById(R.id.spinner_city)
-        mSortSpinner = mRootView.findViewById(R.id.spinner_sort)
+        mCategorySpinner = mRootView!!.findViewById(R.id.spinner_category)
+        mCitySpinner = mRootView!!.findViewById(R.id.spinner_city)
+        mSortSpinner = mRootView!!.findViewById(R.id.spinner_sort)
 
-        mRootView.findViewById<Button>(R.id.button_search).setOnClickListener(this)
-        mRootView.findViewById<Button>(R.id.button_cancel).setOnClickListener(this)
+        mRootView!!.findViewById<Button>(R.id.button_search).setOnClickListener(this)
+        mRootView!!.findViewById<Button>(R.id.button_cancel).setOnClickListener(this)
 
         return mRootView
     }

@@ -9,6 +9,8 @@ import com.google.firebase.firestore.Query
 import com.jefftorcato.saudade.R
 import com.jefftorcato.saudade.data.models.Rating
 import me.zhanghai.android.materialratingbar.MaterialRatingBar
+import java.text.SimpleDateFormat
+
 
 class RatingAdapter(query: Query) : FirestoreAdapter<RatingAdapter.ViewHolder>(query) {
 
@@ -28,11 +30,17 @@ class RatingAdapter(query: Query) : FirestoreAdapter<RatingAdapter.ViewHolder>(q
         var nameView: TextView = itemView.findViewById(R.id.rating_item_name)
         var ratingBar: MaterialRatingBar = itemView.findViewById(R.id.rating_item_rating)
         var textView: TextView = itemView.findViewById(R.id.rating_item_text)
+        var ratingDate: TextView = itemView.findViewById(R.id.rating_item_date)
+
+        private val datePattern: String = "dd/MM/yyy"
+        var simpleDateFormat: SimpleDateFormat = SimpleDateFormat(datePattern)
+
 
         fun bind(rating: Rating) {
             nameView.text = rating.userName
             ratingBar.rating = rating.rating.toFloat()
             textView.text = rating.text
+            ratingDate.text = simpleDateFormat.format(rating.timestamp!!)
         }
     }
 

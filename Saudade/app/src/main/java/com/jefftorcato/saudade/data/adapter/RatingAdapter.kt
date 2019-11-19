@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.jefftorcato.saudade.R
 import com.jefftorcato.saudade.data.models.Rating
@@ -13,6 +14,13 @@ import java.text.SimpleDateFormat
 
 
 class RatingAdapter(query: Query) : FirestoreAdapter<RatingAdapter.ViewHolder>(query) {
+    override fun onError(e: FirebaseFirestoreException) {
+
+    }
+
+    override fun onDatachanged() {
+
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(

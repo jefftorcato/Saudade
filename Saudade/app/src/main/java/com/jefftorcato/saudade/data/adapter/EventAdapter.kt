@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
 import com.jefftorcato.saudade.R
 import com.jefftorcato.saudade.data.models.Event
@@ -16,9 +17,18 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar
 class EventAdapter(query: Query, private val mListener: OnEventSelectedListener) :
     FirestoreAdapter<EventAdapter.ViewHolder>(query) {
 
+    override fun onError(e: FirebaseFirestoreException) {
+
+    }
+
+    override fun onDatachanged() {
+        this.mListener.onDataChange()
+    }
+
     interface OnEventSelectedListener {
 
         fun onEventSelected(event: DocumentSnapshot)
+        fun onDataChange()
 
     }
 

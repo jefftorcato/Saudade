@@ -100,7 +100,7 @@ abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var mQuery
         return mSnapshots[index]
     }
 
-    protected fun onError(e:FirebaseFirestoreException) {}
+    abstract fun onError(e:FirebaseFirestoreException)
 
-    protected fun onDatachanged() {}
+    abstract fun onDatachanged()
 }

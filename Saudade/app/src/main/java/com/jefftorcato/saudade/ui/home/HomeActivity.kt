@@ -41,6 +41,7 @@ class HomeActivity : AppCompatActivity(),
     EventAdapter.OnEventSelectedListener,
     FilterDialogFragment.FilterListener {
 
+
     override val kodein by kodein()
     private val factory: HomeViewModelFactory by instance()
 
@@ -206,5 +207,13 @@ class HomeActivity : AppCompatActivity(),
         return super.onOptionsItemSelected(item)
     }
 
-
+    override fun onDataChange() {
+        if(mAdapter.itemCount==0){
+            mEmptyView.visibility = View.VISIBLE
+            mEventsRecycler.visibility = View.GONE
+        } else {
+            mEmptyView.visibility = View.GONE
+            mEventsRecycler.visibility = View.VISIBLE
+        }
+    }
 }

@@ -10,7 +10,7 @@
 
     <RelativeLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#008577"
+        android:background="#E0E0E0"
         android:orientation="vertical"
         tools:context=".ui.auth.SignupActivity"
         android:scrollbarAlwaysDrawVerticalTrack="true">
@@ -62,7 +62,7 @@
                         android:id="@+id/text_email"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:drawableLeft="@drawable/ic_launcher_background"
+                        android:drawableLeft="@drawable/ic_email"
                         android:drawablePadding="10dp"
                         android:singleLine="true"
                         android:text="@={viewmodel.email}"
@@ -84,7 +84,7 @@
                         android:singleLine="true"
                         android:text="@={viewmodel.password}"
                         android:id="@+id/edit_text_password"
-                        android:drawableLeft="@drawable/ic_launcher_background"
+                        android:drawableLeft="@drawable/ic_lock"
                         android:hint="Password"
                         android:inputType="textPassword"/>
 

@@ -38,15 +38,16 @@ class SignupActivity : AppCompatActivity(), AuthListener, KodeinAware {
 
     override fun onStarted() {
         progressbar.visibility = View.VISIBLE
-        Intent(this, HomeActivity::class.java).also {
+        /*Intent(this, HomeActivity::class.java).also {
             it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(it)
-        }
+        }*/
     }
 
     override fun onSuccess() {
         progressbar.visibility = View.GONE
         startHomeActivity()
+
     }
 
     override fun onFailure(message: String) {

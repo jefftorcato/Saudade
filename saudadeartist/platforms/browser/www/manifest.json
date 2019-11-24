@@ -4,8 +4,8 @@
   "name": "SaudadeArtist",
   "short_name": "SaudadeArtist",
   "version": "com.jefftorcato.saudadeartist",
-  "description": "A sample Apache Cordova application that responds to the deviceready event.",
-  "author": "Apache Cordova Team",
+  "description": "A partner app for artists to add events",
+  "author": "Jeff Torcato",
   "icons": [],
   "start_url": "index.html"
 }

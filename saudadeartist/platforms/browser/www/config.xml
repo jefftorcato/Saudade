@@ -2,10 +2,10 @@
 <widget id="com.jefftorcato.saudadeartist" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>SaudadeArtist</name>
     <description>
-        A sample Apache Cordova application that responds to the deviceready event.
+        A partner app for artists to add events
     </description>
-    <author email="dev@cordova.apache.org" href="http://cordova.io">
-        Apache Cordova Team
+    <author email="jefftorcato@gmail.com" href="https://jefftorcato.in">
+        Jeff Torcato
     </author>
     <content src="index.html" />
     <access origin="*" />
@@ -16,4 +16,6 @@
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <preference name="loadUrlTimeoutValue" value="700000" />
+    <preference name="android-minSdkVersion" value="23" />
+    <preference name="android-targetSdkVersion" value="28" />
 </widget>

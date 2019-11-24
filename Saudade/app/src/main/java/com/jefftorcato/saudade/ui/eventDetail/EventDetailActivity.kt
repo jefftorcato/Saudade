@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -21,9 +22,11 @@ import com.google.android.gms.tasks.Task
 import com.google.android.gms.tasks.Tasks
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.jefftorcato.saudade.R
 import com.jefftorcato.saudade.data.adapter.RatingAdapter
+import com.jefftorcato.saudade.data.models.Booking
 import com.jefftorcato.saudade.data.models.Event
 import com.jefftorcato.saudade.data.models.Rating
 import com.jefftorcato.saudade.databinding.ActivityEventdetailBinding
@@ -44,8 +47,8 @@ class EventDetailActivity : AppCompatActivity(),
     private val factory: EventDetailViewModelFactory by instance()
 
     companion object{
-        private val TAG: String = "Event Detail"
-        val KEY_EVENT_ID = "key_event_id"
+        private const val TAG: String = "Event Detail"
+        const val KEY_EVENT_ID = "key_event_id"
     }
 
     private lateinit var eventDetailviewModel: EventDetailViewModel
@@ -58,6 +61,7 @@ class EventDetailActivity : AppCompatActivity(),
     private lateinit var mCategoryView: TextView
     private lateinit var mEmptyView: ViewGroup
     private lateinit var mRatingsRecycler: RecyclerView
+    private lateinit var mTicketButton: Button
 
     private var mRatingDialog: RatingDialogFragment? = null
 
@@ -84,8 +88,9 @@ class EventDetailActivity : AppCompatActivity(),
         mCategoryView = binding.root.findViewById(R.id.event_category)
         mEmptyView = binding.root.findViewById(R.id.view_empty_ratings)
         mRatingsRecycler = binding.root.findViewById(R.id.recycler_ratings)
+        mTicketButton = binding.root.findViewById(R.id.buy_button)
 
-
+        mTicketButton.setOnClickListener(this)
         binding.root.findViewById<ImageView>(R.id.event_button_back).setOnClickListener(this)
         binding.root.findViewById<FloatingActionButton>(R.id.fab_show_rating_dialog)
             .setOnClickListener(this)
@@ -124,7 +129,7 @@ class EventDetailActivity : AppCompatActivity(),
         super.onStart()
 
         mRatingAdapter!!.startListening()
-        mEventRegistration = mEventRef!!.addSnapshotListener(this)
+        mEventRegistration = mEventRef.addSnapshotListener(this)
     }
 
     override fun onStop() {
@@ -142,8 +147,11 @@ class EventDetailActivity : AppCompatActivity(),
         when (v.id) {
             R.id.event_button_back -> onBackArrowClicked(v)
             R.id.fab_show_rating_dialog -> onAddRatingClicked(v)
+            R.id.buy_button -> bookingProcess()
         }
     }
+
+    //fun
 
     private fun addRating(eventRef: DocumentReference, rating: Rating): Task<Void> {
 
@@ -227,6 +235,37 @@ class EventDetailActivity : AppCompatActivity(),
         if (view != null) {
             (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager)
                 .hideSoftInputFromWindow(view.windowToken, 0)
+        }
+    }
+
+    private fun bookingProcess() {
+        bookTicket()
+            .addOnSuccessListener(this) {
+                Log.d(TAG, "Booking Added")
+            }
+            .addOnFailureListener(this) {
+                Log.d(TAG,"Failed to add Booking")
+            }
+    }
+
+    private fun bookTicket(): Task<Void> {
+        //val event: Event = eventRef.get().toObject(Event::class.java)!!
+        val bookingRef: DocumentReference = mFirestore.collection("bookings").document()
+
+        return mFirestore.runTransaction {
+            val event: Event = it.get(mEventRef).toObject(Event::class.java)!!
+            val booking = Booking(
+                FirebaseAuth.getInstance().currentUser!!,
+                event)
+            var newTicketCount = event.getTicketCount()
+            if(newTicketCount>0) {
+                newTicketCount -= 1
+            }
+
+            event.setTicketCount(newTicketCount)
+            it.set(mEventRef,event)
+            it.set(bookingRef,booking)
+            null
         }
     }
 }

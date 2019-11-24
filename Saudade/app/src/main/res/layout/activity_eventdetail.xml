@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#E0E0E0"
+
         tools:context=".ui.eventDetail.EventDetailActivity">
 
         <RelativeLayout
@@ -130,6 +131,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/event_top_card"
             android:background="@android:color/transparent"
+            android:layout_above = "@+id/buy_button"
             android:clipToPadding="false"
             android:paddingBottom="16dp"
             android:paddingTop="28dp"
@@ -161,6 +163,17 @@
                 android:textColor="@color/greyDisabled" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/buy_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Buy Tickets"
+            android:layout_alignParentBottom = "true"
+            android:layout_alignParentEnd = "true"
+            android:layout_alignParentStart="true"
+            android:background="@color/colorAccent"
+            android:gravity="center"/>
 
     </RelativeLayout>
 </layout>

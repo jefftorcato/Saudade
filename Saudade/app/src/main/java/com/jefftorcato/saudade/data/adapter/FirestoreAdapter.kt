@@ -47,6 +47,7 @@ abstract class FirestoreAdapter<VH : RecyclerView.ViewHolder>(private var mQuery
     }
 
     override fun getItemCount(): Int {
+        Log.d("Snapshot Size",mSnapshots.size.toString())
         return mSnapshots.size
     }
 

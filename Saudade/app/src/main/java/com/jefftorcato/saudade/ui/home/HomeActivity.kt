@@ -27,6 +27,7 @@ import com.jefftorcato.saudade.R
 import com.jefftorcato.saudade.data.adapter.EventAdapter
 import com.jefftorcato.saudade.databinding.ActivityHomeBinding
 import com.jefftorcato.saudade.ui.auth.LoginActivity
+import com.jefftorcato.saudade.ui.bookings.BookingsActivity
 import com.jefftorcato.saudade.ui.dialog.filterDialog.FilterDialogFragment
 import com.jefftorcato.saudade.ui.dialog.filterDialog.Filters
 import com.jefftorcato.saudade.ui.eventDetail.EventDetailActivity
@@ -97,6 +98,7 @@ class HomeActivity : AppCompatActivity(),
         mQuery = mFirestore.collection("event")
             .orderBy("avgRating", Query.Direction.DESCENDING)
             .limit(LIMIT)
+        Log.d(TAG,mQuery.toString())
     }
 
     private fun initRecyclerView() {
@@ -199,6 +201,11 @@ class HomeActivity : AppCompatActivity(),
                 homeViewModel.logout()
                 Intent(this, LoginActivity::class.java).also {
                     it.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    startActivity(it)
+                }
+            }
+            R.id.menu_bookings -> {
+                Intent(this, BookingsActivity::class.java).also {
                     startActivity(it)
                 }
             }

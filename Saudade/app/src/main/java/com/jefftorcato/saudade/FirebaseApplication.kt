@@ -4,6 +4,7 @@ import android.app.Application
 import com.jefftorcato.saudade.data.firebase.FirebaseSource
 import com.jefftorcato.saudade.data.repositories.UserRepository
 import com.jefftorcato.saudade.ui.auth.AuthViewModelFactory
+import com.jefftorcato.saudade.ui.bookings.BookingsViewModelFactory
 import com.jefftorcato.saudade.ui.eventDetail.EventDetailViewModelFactory
 import com.jefftorcato.saudade.ui.home.HomeViewModelFactory
 import org.kodein.di.Kodein
@@ -24,6 +25,6 @@ class FirebaseApplication : Application(), KodeinAware {
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { HomeViewModelFactory(instance()) }
         bind() from provider { EventDetailViewModelFactory(instance()) }
-
+        bind() from provider { BookingsViewModelFactory(instance())}
     }
 }
